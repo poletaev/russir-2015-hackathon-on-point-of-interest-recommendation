@@ -1,4 +1,4 @@
-install.packages(jsonlite)
+install.packages(c('jsonlite', 'plyr'))
 library(jsonlite)
 con = file(description = "batch_requests_combined.json",open = "r")
 data = stream_in(con,pagesize = 1)
@@ -36,8 +36,8 @@ for(i in 1:214)
         {
             id = match(place,places)
             placestags[[id]] = append(placestags[[id]],pref$tags[[count]])
-        }        
-        count=count+1        
+        }
+        count=count+1
     }
 }
 placesinfo = data.frame(id = places,stringsAsFactors = FALSE)
