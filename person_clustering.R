@@ -15,11 +15,10 @@ person$duration <- as.factor(tolower(data$body$duration))
 person$trip.type <- as.factor(tolower(data$body$trip_type))
 
 full.profiles <- person[complete.cases(person),]
-## full.profiles <- full.profiles[names(person) %in%
-##                                c("genders", "normalized.age", "group", "season", "duration", "trip.type")]
 
-
-distances <- daisy(full.profiles[4:9])
+## distances <- daisy(full.profiles[4:9])
+distances <- daisy(full.profiles[names(person) %in%
+                               c("genders", "group", "season", "duration", "trip.type")])
 
 # Hierarchical clustering
 clusterPersons <- hclust(distances, method = "ward.D")
@@ -29,4 +28,4 @@ plot(clusterPersons)
 
 full.profiles$cluster <- cutree(clusterPersons, k = 5)
 
-print(full.profiles[192:194, c(2,3,10)])
+print(full.profiles[192:194, c(2:10)])
