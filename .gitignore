@@ -1,0 +1,9 @@
+# temporarily and generated files
+*~
+*.pyc
+
+# IDE directories
+/**/.idea
+
+# virtual environment
+/**/venv
