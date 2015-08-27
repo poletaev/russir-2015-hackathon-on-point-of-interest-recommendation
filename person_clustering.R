@@ -27,5 +27,10 @@ clusterPersons <- hclust(distances, method = "ward.D")
 plot(clusterPersons)
 
 full.profiles$cluster <- cutree(clusterPersons, k = 5)
+colnames(full.profiles) <- c("id", "location.name", "age", "normalized.age",
+                             "gender", "group", "season", "duration", "trip.type",
+                             "cluster")
+
+
 
 print(full.profiles[192:194, c(2:10)])
