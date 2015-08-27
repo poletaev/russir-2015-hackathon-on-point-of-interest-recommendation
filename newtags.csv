@@ -1,4 +1,4 @@
-old,new
+oldtags,newtags
 adventure,active
 alternative culture,art
 alternative culture,relax
@@ -74,7 +74,8 @@ cross-country skiing,active
 culturally diverse food,authentic
 culture,art
 culture,history
-cycling,sport,active
+cycling,sport
+cycling,active
 deep sea fishing,leisure
 deep sea fishing,relax
 desert,nature
@@ -120,7 +121,8 @@ heliskiing,sport
 heliskiing,active
 high tea,authentic
 high tea,relax
-hiking,nature,active
+hiking,nature
+hiking,active
 history,history
 horse racing,sport
 horse racing,active
@@ -161,7 +163,8 @@ nightlife,leisure
 nightlife,active
 northern lights,nature
 old town,city
-opera,music,relax
+opera,music
+opera,relax
 organic food,restaurant
 outdoor activities,active
 outlets,shopping
@@ -172,7 +175,8 @@ pizza,fast food
 promenade,city
 pub-hopping,drinking
 pub-hopping,active
-rafting,sport,active
+rafting,sport
+rafting,active
 rainforest,nature
 rainforest,relax
 relaxation,relax
@@ -221,7 +225,8 @@ sushi,authentic
 sushi,restaurant
 swimming pools,sport
 swimming pools,active
-tapas,authentic,drinking
+tapas,authentic
+tapas,drinking
 theatre,art
 theatre,relax
 theme parks,leisure
@@ -248,6 +253,7 @@ wine travel,city
 wine travel,drinking
 winter sports,sport
 winter sports,active
-yoga,sport,active
+yoga,sport
+yoga,active
 zoo,leisure
 zoo,family friendly
