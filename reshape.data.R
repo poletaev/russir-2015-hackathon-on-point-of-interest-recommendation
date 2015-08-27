@@ -39,5 +39,12 @@ str(r)
 person.ratings <- unique(r)
 str(person.ratings)
 
-rm(r)
-rm(p)
+rm(r, p)
+rm(i, j, k)
+
+# merge person.ratings and full.profiles
+person.ratings <- merge(person.ratings, full.profiles, by="id",
+                        incomparables = NA)
+str(person.ratings)
+
+# aggregate(rating ~ cluster + tag, data=person.ratings, FUN="mean")
