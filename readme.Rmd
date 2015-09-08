@@ -1,0 +1,118 @@
+---
+title: "Point-of-interest recommendation for travelers. \\
+
+Special Edition of the Text REtrieval Conference (TREC) Contextual Suggestion Track at RuSSIR 2015."
+author: "'MAD IT' team:  Maria, Andrey, Dmitry, Ivan, Tatiana"
+date: "August 27, 2015"
+output: pdf_document
+
+---
+
+# Overview
+
+The goal of the hackathon was to elaborate recommendation for three users based on the history of visited places. Each history record consists of tags user marked the place and raiting (from -5 to 5).
+
+# Data munging
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, results='hide'}
+# At first, load data
+source('scripts.R')
+# Clean data and cluster users:
+source('person_clustering.R')
+```
+
+The test data emulates most of the real world problems such as:
+
+* original data provided in JSON format and need to be converted before analysis,
+* missed data (there are `r num.profiles` profiles but only `r num.full.profiles` of them are complete; one of the target user doesn't have any ratings for visited place; absence of tags and raitings for Saint-Petersburg places),
+* inconsistent data (e.g. gender might be "mail", "femail" or "f"),
+* data duplication (e.g. there are many very similar categories: "Art Galleries", "Museums" and "Fine Art Museums" or "Coffee" and "Cafes" etc.)
+
+
+Some of these issues were solved by using R while others were fixed manually.
+
+# Split users into clusters
+
+Users were split into five clusters by theirs gender, group, trip season, duration and type. Although it wasn't obvious while looking at hierarchical clustering dendogram, the goal was to produce ad hoc solution such that target users with similar traits end up in the same cluster, but not the all three target users:
+
+```{r, echo=FALSE, warning=FALSE}
+plot(clusterPersons, main="User clustering")
+```
+
+Target users:
+
+```{r, echo=FALSE, warning=FALSE}
+library(knitr)
+kable(target.users.clusters)
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, results='hide'}
+# Reshape data:
+source('reshape.data.R')
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, results='hide'}
+# Update ratings:
+source('update.tags.R')
+```
+
+# Calculate target users preferences:
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, results='hide'}
+source('calculate.ratings.R')
+```
+
+Weights of tags for user with *id=1234567* were calculated by averaging ranks of tags for *cluster 3* because there are no any tag for this user:
+
+```{r, echo=FALSE, warning=FALSE}
+library(knitr)
+kable(r.1234567)
+```
+
+Weights of tags for user with *id=1234568*:
+
+```{r, echo=FALSE, warning=FALSE}
+library(knitr)
+kable(r.1234568)
+```
+
+Weights of tags for user with *id=1234569*:
+
+```{r, echo=FALSE, warning=FALSE}
+library(knitr)
+kable(r.1234569)
+```
+
+# Make predictions
+
+```{r, echo=FALSE, message=TRUE, warning=FALSE, results='hide'}
+# Calculate best places:
+source('calculate.best.places.R')
+source('get.top.10.R')
+spb.person1 <- get.top10(person1)
+spb.person2 <- get.top10(person2)
+spb.person3 <- get.top10(person3)
+```
+
+Recommendations for user with *id=1234567*:
+
+```{r, echo=FALSE, warning=FALSE}
+library(knitr)
+kable(spb.person1)
+```
+
+Recommendations for user with *id=1234568*:
+
+```{r, echo=FALSE, warning=FALSE}
+library(knitr)
+kable(spb.person2)
+```
+
+Recommendations for user with *id=1234569*:
+
+```{r, echo=FALSE, warning=FALSE}
+library(knitr)
+kable(spb.person3)
+```
+
+To make final submission in json format execute `source('response.R')`.
