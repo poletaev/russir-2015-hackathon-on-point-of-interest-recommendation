@@ -16,6 +16,9 @@ person$trip.type <- as.factor(tolower(data$body$trip_type))
 
 full.profiles <- person[complete.cases(person),]
 
+num.profiles <- dim(person)[1]
+num.full.profiles <- dim(full.profiles)[1]
+
 ## distances <- daisy(full.profiles[4:9])
 distances <- daisy(full.profiles[names(person) %in%
                                c("genders", "group", "season", "duration", "trip.type")])
@@ -24,13 +27,15 @@ distances <- daisy(full.profiles[names(person) %in%
 clusterPersons <- hclust(distances, method = "ward.D")
 
 # Plot the dendrogram
-plot(clusterPersons)
+# plot(clusterPersons, main="User clustering")
 
 full.profiles$cluster <- cutree(clusterPersons, k = 5)
 colnames(full.profiles) <- c("id", "location.name", "age", "normalized.age",
                              "gender", "group", "season", "duration", "trip.type",
                              "cluster")
 
-
-
-print(full.profiles[192:194, c(2:10)])
+target.users.clusters <- full.profiles[192:194,
+                                       colnames(full.profiles) %in%
+                                       c("id", "age", "gender", "group",
+                                         "season", "duration", "trip.type",
+                                         "cluster")]

@@ -7,11 +7,6 @@ person1 = data.frame(id = response$body$suggestion[[2]],rate = 0,stringsAsFactor
 person2 = data.frame(id = response$body$suggestion[[2]],rate = 0,stringsAsFactors = FALSE)
 person3 = data.frame(id = response$body$suggestion[[2]],rate = 0,stringsAsFactors = FALSE)
 
-person1 = person1 [ order(-person1[,2]), ]
-person2 = person2 [ order(-person2[,2]), ]
-person3 = person3 [ order(-person3[,2]), ]
-
-
 #calculate best places
 spbtags = read.table(file = "spb_places", header = FALSE, sep = ":",as.is = TRUE)
 
@@ -44,3 +39,7 @@ for(i in 1:204)
         person3[current.id,2] = person3[current.id,2] + r.1234569[tag.for3,2]
 
 }
+
+## person1 <- person1[order(person1[,2], decreasing = TRUE),1]
+## person2 <- person2[order(person2[,2], decreasing = TRUE),1]
+## person3 <- person3[order(person3[,2], decreasing = TRUE),1]

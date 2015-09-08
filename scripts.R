@@ -1,4 +1,4 @@
-install.packages(c('jsonlite', 'plyr'))
+#install.packages(c('jsonlite', 'plyr'))
 library(jsonlite)
 con = file(description = "batch_requests_combined.json",open = "r")
 data = stream_in(con,pagesize = 1)
