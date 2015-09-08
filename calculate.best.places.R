@@ -1,8 +1,19 @@
-#calculate best places
-spbtags = read.table(file = "spb_places", header = FALSE, sep = ":",as.is = TRUE)
+con2 = file(description = "sample_batch_response_combined.json",open = "r")
+response = stream_in(con2,pagesize = 1)
+response = response[212:214,]
+close(con2)
+
 person1 = data.frame(id = response$body$suggestion[[2]],rate = 0,stringsAsFactors = FALSE)
 person2 = data.frame(id = response$body$suggestion[[2]],rate = 0,stringsAsFactors = FALSE)
 person3 = data.frame(id = response$body$suggestion[[2]],rate = 0,stringsAsFactors = FALSE)
+
+person1 = person1 [ order(-person1[,2]), ]
+person2 = person2 [ order(-person2[,2]), ]
+person3 = person3 [ order(-person3[,2]), ]
+
+
+#calculate best places
+spbtags = read.table(file = "spb_places", header = FALSE, sep = ":",as.is = TRUE)
 
 count = 0
 last = spbtags[1,1]
@@ -31,5 +42,5 @@ for(i in 1:204)
         person2[current.id,2] = person2[current.id,2] + r.1234568[tag.for2,2]
     if(length(tag.for3>0))
         person3[current.id,2] = person3[current.id,2] + r.1234569[tag.for3,2]
-    
+
 }
