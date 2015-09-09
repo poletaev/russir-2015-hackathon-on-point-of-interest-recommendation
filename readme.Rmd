@@ -2,7 +2,7 @@
 title: "Point-of-interest recommendation for travelers. \\
 
 Special Edition of the Text REtrieval Conference (TREC) Contextual Suggestion Track at RuSSIR 2015."
-author: "'MAD IT' team:  Maria, Andrey, Dmitry, Ivan, Tatiana"
+author: "'MAD IT' team:  Maria Zagulova, Andrey Poletaev, Dmitry Zhelonkin, Ivan Grechikhin, Tatiana Nikulina"
 date: "August 27, 2015"
 output: pdf_document
 
