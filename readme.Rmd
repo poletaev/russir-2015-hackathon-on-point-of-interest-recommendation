@@ -10,9 +10,9 @@ output: pdf_document
 
 # Overview
 
-The goal of the hackathon was to elaborate recommendation for three users based on the their history of visited places. Each history record consists of tags user marked the place and rating (from -5 to 5). The complete description of the task and dataset could be found here: http://plg.uwaterloo.ca/~claclark/russir2015.
+The goal of the hackathon was to elaborate recommendation for three users based on their history of visited places. Each history record consists of tags user marked the place and rating (from -5 to 5). The complete description of the task and dataset could be found here: http://plg.uwaterloo.ca/~claclark/russir2015.
 
-Our approach is based on estimating relatieve weight of each tag user assigned to visited place and using this weigths to calculate rating for new place by averaging values associated with each tag.
+Our approach is based on estimating relative weight of each tag user assigned to visited place and using these weights to calculate rating for a new place by averaging values associated with each tag.
 
 # Data munging
 
@@ -23,20 +23,20 @@ source('scripts.R')
 source('person_clustering.R')
 ```
 
-One of the most serious problem faiced our team was issues with test data. The dataset emulates most of the real world problems such as:
+Some of the most serious problems faced our team were issues with test data. The dataset emulates most of the real world problems such as:
 
 * original data provided in JSON format and need to be converted before analysis,
-* missed data (there are `r num.profiles` profiles but only `r num.full.profiles` of them are complete; one of the target user doesn't have any ratings for visited place; absence of tags and ratings for Saint-Petersburg places),
-* inconsistent data (e.g. gender might be "mail", "femail" or "f"),
+* missed data (there are `r num.profiles` profiles but only `r num.full.profiles` of them are complete; one of the target user doesn't have any ratings for a visited place; absence of tags and ratings for Saint-Petersburg places),
+* inconsistent data (e.g. gender might be "male", "female" or "f"),
 * data duplication (e.g. there are many very similar categories: "Art Galleries", "Museums" and "Fine Art Museums" or "Coffee" and "Cafes" etc.),
-* small number of users datasets,
-* dataset of ratings is very sparse.
+* a small number of users datasets,
+* a dataset of ratings is very sparse.
 
 Some of these issues were solved by using R, others were fixed manually, but the remained problems couldn't be solved due to the lack of information.
 
 # Split users into cohorts
 
-Users were split into five clusters by theirs gender, group, trip season, duration and type. Although it wasn't obvious while looking at hierarchical clustering dendogram, we choose five clusters. The goal was to produce ad hoc solution such that target users with similar traits end up in the same cluster, but do not assigh the same cluster to the all three target users:
+Users were split into five clusters by their gender, group, trip season, duration and type. Although it wasn't obvious while looking at hierarchical clustering dendrogram, we choose five clusters. The goal was to produce ad hoc solution such that target users with similar traits end up in the same cluster but do not assign the same cluster to the all three target users:
 
 ```{r, echo=FALSE, warning=FALSE}
 plot(clusterPersons, main="User clustering")
@@ -65,7 +65,7 @@ source('update.tags.R')
 source('calculate.ratings.R')
 ```
 
-Weights of tags for user with *id=1234567* were calculated by averaging ranks of tags for *cluster 3* because there are no any tag for this user:
+Weights of tags for user with *id=1234567* were calculated by averaging ranks of tags for *cluster 3* because there is no any tag for this user:
 
 ```{r, echo=FALSE, warning=FALSE}
 library(knitr)
@@ -118,8 +118,8 @@ library(knitr)
 kable(spb.person3)
 ```
 
-To make final submission in json format execute `source('response.R')`.
+To make a final submission in JSON format execute `source('response.R')`.
 
 # Conclusion
 
-Although proposed method is pretty simple, it works quite good: we managed to guess at least one real preference of the user. The reason why it demonstrates such result might be the usage only relevant information. We use only ratings of similar users (averaging by cluster) or ratings of users themself. Obviously our solution lacks any reliable performance indicator: splitting original data into train and validation sets could help, but with such little dataset it most likely hurt performance.
+Although proposed method is pretty simple, it works quite good: we managed to guess at least one real preference of the user. The reason why it demonstrates such result might be the usage only relevant information. We use only ratings of similar users (averaging by cluster) or ratings of users themselves. Obviously our solution lacks any reliable performance indicator: splitting original data into a train and validation sets could help, but with such little dataset it most likely hurt performance.
